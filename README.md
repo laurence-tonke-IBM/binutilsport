@@ -13,7 +13,8 @@ zopen install binutils
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/zopencommunity/binutilsport.git
+git clone https://github.com/laurence-tonke-IBM/binutilsport.git
+
 cd binutils
 ```
 2. Build using zopen:
