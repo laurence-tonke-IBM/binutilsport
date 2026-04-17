@@ -6,7 +6,7 @@ export ZOPEN_STABLE_URL="https://ftp.gnu.org/gnu/binutils/binutils-${BINUTILS_VE
 export ZOPEN_STABLE_DEPS="make"
 export ZOPEN_BUILD_LINE="?"
 export ZOPEN_CATEGORIES="development"
-export ZOPEN_CONFIGURE_OPTS="--with-cc=\${CC} --with-ld-opt=\"\$LDFLAGS \$LIBS\" --with-cc-opt=\"\$CPPFLAGS \$CFLAGS\" 
+export ZOPEN_CONFIGURE_OPTS="--with-cc=\${CC} --with-ld-opt=\"\$LDFLAGS \$LIBS\" --with-cc-opt=\"\$CPPFLAGS \$CFLAGS\" "
 
 zopen_check_results()
 {
