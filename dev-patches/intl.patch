@@ -3,40 +3,40 @@ index 6faac5756a..72c825f402 100644
 --- a/intl/bindtextdom.c
 +++ b/intl/bindtextdom.c
 @@ -156,7 +156,7 @@ set_binding_values (domainname, dirnamep, codesetp)
-                  else
-                    {
+ 		  else
+ 		    {
  #if defined _LIBC || defined HAVE_STRDUP
--                     result = strdup (dirname);
-+                     result = (char *) strdup (dirname);
+-		      result = strdup (dirname);
++		      result = (char *) strdup (dirname);
  #else
-                      size_t len = strlen (dirname) + 1;
-                      result = (char *) malloc (len);
+ 		      size_t len = strlen (dirname) + 1;
+ 		      result = (char *) malloc (len);
 @@ -194,7 +194,7 @@ set_binding_values (domainname, dirnamep, codesetp)
-              if (result == NULL || strcmp (codeset, result) != 0)
-                {
+ 	      if (result == NULL || strcmp (codeset, result) != 0)
+ 		{
  #if defined _LIBC || defined HAVE_STRDUP
--                 result = strdup (codeset);
-+                 result = (char *) strdup (codeset);
+-		  result = strdup (codeset);
++		  result = (char *) strdup (codeset);
  #else
-                  size_t len = strlen (codeset) + 1;
-                  result = (char *) malloc (len);
+ 		  size_t len = strlen (codeset) + 1;
+ 		  result = (char *) malloc (len);
 @@ -252,7 +252,7 @@ set_binding_values (domainname, dirnamep, codesetp)
-                {
-                  char *result;
+ 		{
+ 		  char *result;
  #if defined _LIBC || defined HAVE_STRDUP
--                 result = strdup (dirname);
-+                 result = (char *) strdup (dirname);
-                  if (__builtin_expect (result == NULL, 0))
-                    goto failed_dirname;
+-		  result = strdup (dirname);
++		  result = (char *) strdup (dirname);
+ 		  if (__builtin_expect (result == NULL, 0))
+ 		    goto failed_dirname;
  #else
 @@ -283,7 +283,7 @@ set_binding_values (domainname, dirnamep, codesetp)
-              char *result;
-
+ 	      char *result;
+ 
  #if defined _LIBC || defined HAVE_STRDUP
--             result = strdup (codeset);
-+             result = (char *) strdup (codeset);
-              if (__builtin_expect (result == NULL, 0))
-                goto failed_codeset;
+-	      result = strdup (codeset);
++	      result = (char *) strdup (codeset);
+ 	      if (__builtin_expect (result == NULL, 0))
+ 		goto failed_codeset;
  #else
 diff --git a/intl/finddomain.c b/intl/finddomain.c
 index e12a638d5c..08a48c9b98 100644
@@ -49,7 +49,7 @@ index e12a638d5c..08a48c9b98 100644
 -      locale = strdup (alias_value);
 +      locale = (char *) strdup (alias_value);
        if (locale == NULL)
-        return NULL;
+ 	return NULL;
  #else
 diff --git a/intl/gettextP.h b/intl/gettextP.h
 index 3ff2dd77a6..81b6ea63fe 100644
@@ -57,12 +57,12 @@ index 3ff2dd77a6..81b6ea63fe 100644
 +++ b/intl/gettextP.h
 @@ -163,7 +166,7 @@ const char *_nl_locale_name PARAMS ((int category, const char *categoryname));
  #endif
-
+ 
  struct loaded_l10nfile *_nl_find_domain PARAMS ((const char *__dirname,
--                                                char *__locale,
-+                                                char *__locale_d,
-                                                 const char *__domainname,
-                                              struct binding *__domainbinding))
+-						 char *__locale,
++						 char *__locale_d,
+ 						 const char *__domainname,
+ 					      struct binding *__domainbinding))
       internal_function;
 diff --git a/intl/localealias.c b/intl/localealias.c
 index 5af5b5b6af..32c50ac449 100644
@@ -71,28 +71,28 @@ index 5af5b5b6af..32c50ac449 100644
 @@ -258,7 +258,7 @@ read_alias_file (fname, fname_len)
        char *value;
        char *cp;
-
+ 
 -      if (FGETS (buf, sizeof buf, fp) == NULL)
 +      if ((void *) FGETS (buf, sizeof buf, fp) == NULL)
-        /* EOF reached.  */
-        break;
-
+ 	/* EOF reached.  */
+ 	break;
+ 
 @@ -349,7 +349,7 @@ read_alias_file (fname, fname_len)
        /* Possibly not the whole line fits into the buffer.  Ignore
-         the rest of the line.  */
+ 	 the rest of the line.  */
        while (strchr (buf, '\n') == NULL)
--       if (FGETS (buf, sizeof buf, fp) == NULL)
-+       if ((void *) FGETS (buf, sizeof buf, fp) == NULL)
-          /* Make sure the inner loop will be left.  The outer loop
-             will exit at the `feof' test.  */
-          break;
+-	if (FGETS (buf, sizeof buf, fp) == NULL)
++	if ((void *) FGETS (buf, sizeof buf, fp) == NULL)
+ 	  /* Make sure the inner loop will be left.  The outer loop
+ 	     will exit at the `feof' test.  */
+ 	  break;
 diff --git a/intl/textdomain.c b/intl/textdomain.c
 index a06d129f31..4a9135f7ba 100644
 --- a/intl/textdomain.c
 +++ b/intl/textdomain.c
 @@ -108,7 +108,7 @@ TEXTDOMAIN (domainname)
-         will be NULL.  This value will be returned and so signals we
-         are out of core.  */
+ 	 will be NULL.  This value will be returned and so signals we
+ 	 are out of core.  */
  #if defined _LIBC || defined HAVE_STRDUP
 -      new_domain = strdup (domainname);
 +      new_domain = (char *) strdup (domainname);

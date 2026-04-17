@@ -10,7 +10,7 @@ index d34320c717..9333006f1b 100644
  #undef inline
  #endif
 +#endif
-
+ 
  /* Define to `int' if <sys/types.h> does not define. */
  #undef pid_t
 diff --git a/libiberty/hex.c b/libiberty/hex.c
@@ -20,7 +20,7 @@ index 5eeafdbd15..46e463922a 100644
 @@ -149,6 +149,83 @@ const unsigned char _hex_value[_hex_array_size] =
  };
  #define HEX_TABLE_INITIALIZED
-
+ 
 +#elif HOST_CHARSET == HOST_CHARSET_EBCDIC
 +const unsigned char _hex_value[_hex_array_size] =
 +{
@@ -99,14 +99,14 @@ index 5eeafdbd15..46e463922a 100644
 +#define HEX_TABLE_INITIALIZED
 +
  #else
-
+ 
  unsigned char _hex_value[_hex_array_size];
 diff --git a/libiberty/safe-ctype.c b/libiberty/safe-ctype.c
 index 0972b4b354..1d5c023b57 100644
 --- a/libiberty/safe-ctype.c
 +++ b/libiberty/safe-ctype.c
 @@ -248,7 +248,143 @@ const unsigned char _sch_toupper[256] =
-
+ 
  #else
  # if HOST_CHARSET == HOST_CHARSET_EBCDIC
 -  #error "FIXME: write tables for EBCDIC"
@@ -159,41 +159,41 @@ index 0972b4b354..1d5c023b57 100644
 + 112,113,114,115, 116,117,118,119, 120,121,122,123, 124,125,126,127,
 +
 + 128,
-+
++ 
 + /* EBCDIC lowercase letters a-i at 129-137 */
-+ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
++ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 
 +
 + 138,139,140,141, 142,143,144,
-+
++ 
 + /* EBCDIC lowercase letters j-r at 145-153 */
-+ 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
++ 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 
 +
 + 154,155,156,157, 158,159,160,161,
-+
++ 
 + /* EBCDIC lowercase letters s-z at 162-169 */
 + 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-+
++ 
 + 170,171,172,173, 174,175,176,177, 178,179,180,181, 182,183,184,185,
 + 186,187,188,189, 190,191,192,
-+
++ 
 + /* EBCDIC uppercase A-I at 193-201 -> lowercase a-i at 129-137 */
-+ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
-+
++ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 
++ 
 + 202,203,204,205, 206,207,208,
-+
++ 
 + /* EBCDIC uppercase J-R at 209-217 -> lowercase j-r at 145-153 */
-+ 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-+
++ 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 
++ 
 + 218,219,220,221, 222,223,224,225,
-+
++ 
 + /* EBCDIC uppercase S-Z at 226-233 -> lowercase s-z at 162-169 */
 + 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-+
++ 
 + 234,235,236,237, 238,239,
-+
++ 
 + /* EBCDIC digits 0-9 at 240-249 */
 + 240, 241, 242, 243, 244, 245, 246, 247, 248, 249,
-+
++ 
 + 250,251,252,253, 254,255,
 +};
 +
@@ -209,41 +209,41 @@ index 0972b4b354..1d5c023b57 100644
 + 112,113,114,115, 116,117,118,119, 120,121,122,123, 124,125,126,127,
 +
 + 128,
-+
++ 
 + /* EBCDIC lowercase a-i at 129-137 -> uppercase A-I at 193-201 */
 + 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
-+
++ 
 + 138,139,140,141, 142,143,144,
-+
++ 
 + /* EBCDIC lowercase j-r at 145-153 -> uppercase J-R at 209-217 */
-+ 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-+
++ 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 
++ 
 + 154,155,156,157, 158,159,160,161,
-+
++ 
 + /* EBCDIC lowercase s-z at 162-169 -> uppercase S-Z at 226-233 */
 + 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-+
++ 
 + 170,171,172,173, 174,175,176,177, 178,179,180,181, 182,183,184,185,
 + 186,187,188,189, 190,191,192,
-+
++ 
 + /* EBCDIC uppercase A-I at 193-201 */
 + 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
-+
++ 
 + 202,203,204,205, 206,207,208,
-+
++ 
 + /* EBCDIC uppercase J-R at 209-217 */
-+ 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-+
++ 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 
++ 
 + 218,219,220,221, 222,223,224,225,
-+
++ 
 + /* EBCDIC uppercase S-Z at 226-233 */
 + 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-+
++ 
 + 234,235,236,237, 238,239,
-+
++ 
 + /* EBCDIC digits 0-9 at 240-249 */
 + 240, 241, 242, 243, 244, 245, 246, 247, 248, 249,
-+
++ 
 + 250,251,252,253, 254,255,
 +};
 +
