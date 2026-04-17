@@ -15,7 +15,7 @@ zopen install binutils
 ```bash
 git clone https://github.com/laurence-tonke-IBM/binutilsport.git
 
-cd binutils
+cd binutilsport
 ```
 2. Build using zopen:
 ```bash
